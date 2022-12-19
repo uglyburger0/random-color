@@ -1,0 +1,93 @@
+@keyframes spin {
+    from {
+        transform: rotate(45deg);
+    }
+    to {
+        transform: rotate(-45deg);
+    }
+}
+
+@keyframes scrolling {
+    from {
+        background-position-x: 0%;
+        background-position-y: 0%;
+    }
+    to {
+        background-position-x: 466%;
+        background-position-y: 2367%;
+    }
+}
+
+#spinning-image {
+    animation: spin 2s cubic-bezier(0.645, 0.045, 0.355, 1) alternate-reverse infinite;
+    padding-bottom: 64px;
+}
+
+#container {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    font-family: sans-serif;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.45);
+    color: #fff;
+    padding: 4px 6px;
+}
+
+input::-webkit-file-upload-button {
+    font-family: sans-serif;
+    border: none;
+    border-radius: 4px;
+    background-color: #444;
+    color: #fff;
+    padding: 4px 8px;
+}
+
+
+footer {
+    color: rgba(255, 255, 255, .5);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: x-small;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 16px;
+}
+
+body {
+    animation: scrolling 13s cubic-bezier(0.645, 0.045, 0.355, 1) alternate-reverse infinite;
+    padding-top: 42px;
+}
+
+h1 {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 64px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#headerspan {
+    text-shadow: 0px 0px 6px black;
+    color: white;
+    transition: background-color 0.5s ease-out;
+    border: none;
+    border-radius: 8px;
+    background-color: #333;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+h2 {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 48px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

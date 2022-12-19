@@ -1,0 +1,199 @@
+<html>
+<head>
+    <title>the james cage white color picker</title>
+    <link rel="icon" href="fav.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="main.css">
+    <script>
+        function SilentDread() {
+            // Kill the footer
+            document.getElementsByTagName("footer")[0].style.display = "none";
+
+            // Hide all headers
+            let headers = document.getElementsByName("header");
+            for (let i = 0; i < headers.length; i++) {
+                headers[i].style.display = "none";
+            }
+
+            // Hide "spinning-image"
+            document.getElementById("spinning-image").style.display = "none";
+
+            // Change background color to black
+            document.body.style.backgroundColor = "black";
+
+            // Wait a second
+            setTimeout(() => {
+                // Slowly fade in dread.png
+                let audio = document.getElementById("dreadsound");
+                audio.play();
+                document.body.style.background = "url('assets/dread.png')";
+                document.body.style.backgroundRepeat = "repeat";
+                document.body.style.backgroundSize = "186px";
+                // Play the scrolling-background keyframe
+                document.body.style.animation = "scrolling-background 10s linear infinite";
+
+                // 13/5 = 2.6
+                // Every 2.6 seconds, increase the size of the image by 45%
+                let size = 186;
+                let interval = setInterval(() => {
+                    size *= 1.25;
+                    document.body.style.backgroundSize = size + "px";
+                    if (size > 10000) {
+                        clearInterval(interval);
+                    }
+                }, 1500);
+
+                // Wait 7 seconds and refresh
+                setTimeout(() => {
+                    location.reload();
+                }, 13000);
+
+            }, 1000);
+        }
+
+        function ActivateDread() {
+            // Kill the footer
+            document.getElementsByTagName("footer")[0].style.display = "none";
+
+            // Hide all headers
+            let headers = document.getElementsByName("header");
+            for (let i = 0; i < headers.length; i++) {
+                headers[i].style.display = "none";
+            }
+
+            // Hide "spinning-image"
+            document.getElementById("spinning-image").style.display = "none";
+
+            // Change background color to black
+            document.body.style.backgroundColor = "black";
+
+            // Wait a second
+            setTimeout(() => {
+                // Set body to an image
+                let audio = document.getElementById("awesomesound");
+                audio.play();
+                document.body.style.background = "url('assets/heyapple.gif')";
+                document.body.style.backgroundRepeat = "repeat";
+                
+                // Wait 7 seconds and refresh
+                setTimeout(() => {
+                    location.reload();
+                }, 7000);
+                
+            }, 1000);
+        }
+
+        function ChangeColor() {
+            let bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+            bg_colour = "#" + ("000000" + bg_colour).slice(-6);
+
+            // Softly change "headerspan" color
+            const headerspan = document.getElementById("headerspan")
+            headerspan.innerHTML = bg_colour
+            headerspan.style.backgroundColor = bg_colour
+
+            // Change h2 text to the color
+            // Tween the color softly
+            let body = document.getElementsByTagName("body")[0];
+            //body.style.backgroundColor = bg_colour;
+            body.style.backgroundColor = "#111";
+        }
+
+        function CopyColor() {
+            const headerspan = document.getElementById("headerspan")
+            const originalColor = headerspan.innerText
+            navigator.clipboard.writeText(originalColor) // Copies to clipboard
+            
+            // Tell the user it was copied for .5 seconds
+            headerspan.innerText = "copied!"
+            setTimeout(() => {
+                headerspan.innerText = originalColor
+            }, 800);
+        }
+    </script>
+    <script>
+        const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        let index = 0;
+
+        document.addEventListener('keydown', (event) => {
+            if (event.keyCode === 32) {
+                // Spacebar pressed
+                ChangeColor()
+            }
+            if (event.keyCode === konamiCode[index]) {
+                index++;
+                if (index === konamiCode.length) {
+                    index = 0; // Still reset the index, so that the user can enter the code again
+                    console.log('Konami code entered!');
+                    ActivateDread(); // Activate the Awfulness that is the Dread
+                }
+            } else {
+                index = 0;
+            }
+        });
+    </script>
+</head>
+
+<body bgcolor="#0e0e0e">
+    <h1 name="header">Welcome to your awesome browser!!!</h1>
+    <h2 name="header">
+        The color today is <span id="headerspan">#000000</span>
+    </h2>
+    <audio id="awesomesound">
+        <source src="assets/heyapple.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="dreadsound">
+        <source src="assets/dread.mp3" type="audio/mpeg">
+    </audio>
+    <div id="container">
+        <img id="spinning-image" src="assets/james.png" width="200" height="200">
+    </div>
+
+    <script type="text/javascript">
+        ChangeColor()
+    </script>
+    <script>
+        // When we click the image, slightly enlarge it
+        document.getElementById("spinning-image").addEventListener("click", () => {
+            let image = document.getElementById("spinning-image");
+            console.log("Click image")
+            // Increase size by 10px
+            image.width /= .9;
+            image.height /= .9;
+        });
+    </script>
+    
+</body>
+
+<footer>
+    <input type="file" accept="image/*" value="Change Image" id="pngFileInput">
+    <p>super real @uglyburger 2022 copyright!!!!</p>
+
+    <script>
+        const input = document.getElementById('pngFileInput');
+
+        input.addEventListener('change', (event) => {
+            const target = event.target;
+            const file = target.files[0];
+            const reader = new FileReader();
+            console.log(file);
+            // If name has any hint of "orange"
+            if (file.name.toLowerCase().includes("orange")) {
+                // You Know What To Do.
+                SilentDread();
+                return;
+            }
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                let image = document.getElementById("spinning-image");
+                image.src = reader.result;
+            };
+        });
+
+        // On headerspan click, copy the color to clipboard
+        document.getElementById("headerspan").addEventListener("click", () => {
+            CopyColor()
+        });
+    </script>
+</footer>
+
+</html>
